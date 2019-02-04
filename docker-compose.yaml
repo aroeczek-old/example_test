@@ -1,0 +1,47 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+  postgres:
+    container_name: gat_postgres
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_USER: aswidrak
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+    volumes:
+      - gat_postgres:/var/lib/postgresql/data
+      - ./docker/postgres/gat_database:/database
+  redis:
+    container_name: gat_redis
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./docker/gat_redis:/data
+    entrypoint: redis-server --appendonly yes
+    restart: always
+  api:
+    container_name: gat_api
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle install && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/gat
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+      - redis
+  sidekiq:
+    container_name: gat_sidekiq
+    build: .
+    command: bash -c "bundle install && bundle exec sidekiq"
+    depends_on:
+      - redis
+      - postgres
+      - api
+    volumes:
+      - .:/gat
+volumes:
+ gat_postgres:

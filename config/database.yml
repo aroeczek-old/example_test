@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool:     <%= Rails.application.credentials.dig(Rails.env.to_sym, :RAILS_MAX_THREADS) || 5 %>
+  username: <%= Rails.application.credentials.dig(Rails.env.to_sym, :DB_USERNAME) || '' %>
+  password: <%= Rails.application.credentials.dig(Rails.env.to_sym, :DB_PASSWORD) || '' %>
+  host:     <%= Rails.application.credentials.dig(Rails.env.to_sym, :DB_HOSTNAME) || 'localhost' %>
+  port:     <%= Rails.application.credentials.dig(Rails.env.to_sym, :DB_PORT) || 5432 %>
+  timeout:  <%= Rails.application.credentials.dig(Rails.env.to_sym, :DB_TIMEOUT) || 5000 %>
+
+development:
+  <<: *default
+  database: <%= Rails.application.credentials.dig(Rails.env.to_sym, :DB_NAME) || 'gat_dev' %>
+
+test:
+  <<: *default
+  database: <%= Rails.application.credentials.dig(Rails.env.to_sym, :DB_NAME) || 'gat_test' %>
+
+production:
+  <<: *default
+  database: <%= Rails.application.credentials.dig(Rails.env.to_sym, :DB_NAME) || 'gat_production' %>
