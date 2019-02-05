@@ -10,9 +10,75 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2019_02_05_211433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "countries", force: :cascade do |t|
+    t.string "code"
+    t.bigint "panel_provider_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["panel_provider_id"], name: "index_countries_on_panel_provider_id"
+  end
+
+  create_table "countries_target_groups", force: :cascade do |t|
+    t.bigint "target_group_id", null: false
+    t.bigint "country_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_countries_target_groups_on_country_id"
+    t.index ["target_group_id", "country_id"], name: "index_countries_target_groups_on_target_group_id_and_country_id", unique: true
+    t.index ["target_group_id"], name: "index_countries_target_groups_on_target_group_id"
+  end
+
+  create_table "location_groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "country_id"
+    t.bigint "panel_provider_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_location_groups_on_country_id"
+    t.index ["panel_provider_id"], name: "index_location_groups_on_panel_provider_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name", null: false
+    t.uuid "external_id"
+    t.string "secret_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "secret_code_iv"
+    t.index ["secret_code_iv"], name: "index_locations_on_secret_code_iv", unique: true
+  end
+
+  create_table "panel_providers", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "target_groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.uuid "external_id"
+    t.bigint "parent_id"
+    t.string "secret_code"
+    t.bigint "panel_provider_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "secret_code_iv"
+    t.index ["panel_provider_id"], name: "index_target_groups_on_panel_provider_id"
+    t.index ["parent_id"], name: "index_target_groups_on_parent_id"
+    t.index ["secret_code_iv"], name: "index_target_groups_on_secret_code_iv", unique: true
+  end
+
+  add_foreign_key "countries", "panel_providers"
+  add_foreign_key "countries_target_groups", "countries"
+  add_foreign_key "countries_target_groups", "target_groups"
+  add_foreign_key "location_groups", "countries"
+  add_foreign_key "location_groups", "panel_providers"
+  add_foreign_key "target_groups", "panel_providers"
+  add_foreign_key "target_groups", "target_groups", column: "parent_id"
 end

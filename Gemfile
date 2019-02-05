@@ -18,9 +18,15 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Simple, efficient background processing for Ruby.
 gem 'sidekiq', '~> 5.2', '>= 5.2.5'
 
+#Organise ActiveRecord model into a tree structure
+gem 'ancestry', '~> 3.0.5'
+
+#encrypt and decrypt attributes
+gem "attr_encrypted", "~> 3.1.0"
+
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # An IRB alternative and runtime developer console
+  gem 'pry', '~> 0.10.4'
 end
 
 group :development do
