@@ -63,14 +63,13 @@ ActiveRecord::Schema.define(version: 2019_02_05_211433) do
   create_table "target_groups", force: :cascade do |t|
     t.string "name", null: false
     t.uuid "external_id"
-    t.bigint "parent_id"
+    t.string "parent_id"
     t.string "secret_code"
     t.bigint "panel_provider_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "secret_code_iv"
     t.index ["panel_provider_id"], name: "index_target_groups_on_panel_provider_id"
-    t.index ["parent_id"], name: "index_target_groups_on_parent_id"
     t.index ["secret_code_iv"], name: "index_target_groups_on_secret_code_iv", unique: true
   end
 
@@ -80,5 +79,4 @@ ActiveRecord::Schema.define(version: 2019_02_05_211433) do
   add_foreign_key "location_groups", "countries"
   add_foreign_key "location_groups", "panel_providers"
   add_foreign_key "target_groups", "panel_providers"
-  add_foreign_key "target_groups", "target_groups", column: "parent_id"
 end

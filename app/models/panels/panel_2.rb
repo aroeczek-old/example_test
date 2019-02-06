@@ -1,3 +1,3 @@
 module Panels
-  class Panel_1 < PanelProvider; end
+  class Panel_2 < PanelProvider; end
 end
