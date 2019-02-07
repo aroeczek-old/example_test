@@ -4,4 +4,8 @@ class PanelProvider < ApplicationRecord
   has_one :target_group
 
   validates :type, inclusion: { in: TYPES }
+
+  def calculate_price
+    PanelProviders::Pricing::CalculatorFactory.call
+  end
 end

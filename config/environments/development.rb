@@ -44,6 +44,8 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  config.cache_store = :redis_cache_store, { url: "redis://#{Rails.application.credentials.dig(:development, :REDIS_HOST)}:"\
+                                                  "#{Rails.application.credentials.dig(:development, :REDIS_PORT)}/0"}
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

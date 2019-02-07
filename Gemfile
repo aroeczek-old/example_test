@@ -24,9 +24,18 @@ gem 'ancestry', '~> 3.0.5'
 #encrypt and decrypt attributes
 gem "attr_encrypted", "~> 3.1.0"
 
+#HTTP/REST API client library.
+gem 'faraday', '~> 0.15.4'
+
+#cache
+gem "redis", "~> 4.1"
+
+gem 'nokogiri', '~> 1.6', '>= 1.6.8'
+
 group :development, :test do
   # An IRB alternative and runtime developer console
   gem 'pry', '~> 0.10.4'
+  gem 'bullet', '~> 5.9'
 end
 
 group :development do
