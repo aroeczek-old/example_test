@@ -19,7 +19,7 @@ module Fetchers
     def call
       fetch
 
-      occurence
+      Response.new(success, occurence)
     end
 
     private
@@ -50,6 +50,7 @@ module Fetchers
     end
 
     def can_not_fetch_page_content
+      self.success = false
       #Rollbar.logger.error "#{self.class.to_s} can not fetch page content, {page: page_url}"
     end
   end

@@ -1,9 +1,12 @@
 module Fetchers
   class Base
+    Response = Struct.new(:success, :occurence)
+
     def initialize(page_url, use_cache)
       @page_url    = page_url
       @use_cache   = use_cache
       @http_client = Faraday.new page_url
+      @success     = true
       @response    = nil
       @body        = nil
       @occurence   = nil
@@ -11,7 +14,8 @@ module Fetchers
 
     protected
 
-    attr_accessor :page_url, :use_cache, :http_client, :response, :occurence, :body
+    attr_accessor :page_url, :use_cache, :http_client, :response,
+                  :occurence, :body, :success
 
     def fetch
       self.occurence = use_cache ? fetch_with_cache : fetch_raw
