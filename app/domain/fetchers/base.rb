@@ -1,5 +1,7 @@
 module Fetchers
   class Base
+    DEFAULT_FETCHERS_CACHE_EXPIRATION_SECONDS = 60
+
     Response = Struct.new(:success, :occurence)
 
     def initialize(page_url, use_cache)
@@ -34,6 +36,10 @@ module Fetchers
     end
 
     def fetch_raw
+      raise_not_implemented
+    end
+
+    def count_occurence
       raise_not_implemented
     end
 

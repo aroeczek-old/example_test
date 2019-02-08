@@ -1,6 +1,5 @@
 module Fetchers
   class LettersNumber < Base
-    DEFAULT_LETTER_CACHE_EXPIRATION_SECONDS = 60
     BODY_REGEXP = /<body.*<\/body>/m
 
     def initialize(page_url, letter_to_count, use_cache)
@@ -31,12 +30,12 @@ module Fetchers
       self.body     = response.body.match(BODY_REGEXP).to_s
       self.text     = ActionView::Base.full_sanitizer.sanitize(body.to_s)
 
-      count_leter_occurence
+      count_occurence
     rescue Faraday::ClientError
       can_not_fetch_page_content
     end
 
-    def count_leter_occurence
+    def count_occurence
       text.count letter_to_count
     end
 
@@ -46,7 +45,7 @@ module Fetchers
 
     def cache_expiration_seconds
       Rails.application.credentials.dig(Rails.env.to_sym, :LETTER_CACHE_EXPIRATION_SECONDS) ||
-        DEFAULT_LETTER_CACHE_EXPIRATION_SECONDS
+        DEFAULT_FETCHERS_CACHE_EXPIRATION_SECONDS
     end
 
     def can_not_fetch_page_content
