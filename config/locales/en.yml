@@ -6,3 +6,6 @@ en:
           attributes:
             target_group_id:
               not_root_object: 'Is not a root object'
+  errors:
+    location_group:
+      duplicated_for_country: 'already exist for country'

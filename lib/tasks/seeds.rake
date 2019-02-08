@@ -36,11 +36,13 @@ namespace :seeds do
   task location_groups: [:environment, 'seeds:panel_providers', 'seeds:countries'] do
     prevent_production!
 
-    panel_ids   = PanelProvider.ids
-    country_ids = Country.ids
+    panel_ids    = PanelProvider.ids
+    country_ids  = Country.ids
+    location_ids = Location.ids
 
     (1..4).each { |number| LocationGroup.create!(name: "lg_#{number}",
                                                  country_id: country_ids.sample,
+                                                 location_id: location_ids.sample,
                                                  panel_provider_id: panel_ids.shift || PanelProvider.first.id )}
 
     Rails.logger.info('Seeding location groups done')
