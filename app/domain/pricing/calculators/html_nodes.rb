@@ -14,7 +14,7 @@ module Pricing
       private
 
       def price
-        number_fetcher.call / 100
+        number_fetcher.call.occurence / 100.0
       end
     end
   end

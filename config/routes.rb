@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   #If api will be more complicated or need versions I would introduce another level like api/v1/
   namespace :api do
+    namespace :public do
+    end
+
+    post 'evaluate_target', controller: :panels
+
     resources :locations, only: [:index] do
       collection do
         get ':country_code', action: :index

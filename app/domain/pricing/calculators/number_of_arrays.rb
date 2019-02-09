@@ -1,6 +1,6 @@
 module Pricing
   module Calculators
-    class Letters < Base
+    class NumberOfArrays < Base
       def initialize(arrays_number_fetcher)
         super
       end
@@ -14,7 +14,7 @@ module Pricing
       private
 
       def price
-        number_fetcher.call
+        number_fetcher.call.occurence
       end
     end
   end

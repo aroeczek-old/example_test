@@ -36,6 +36,9 @@ gem 'nokogiri', '~> 1.6', '>= 1.6.8'
 #JSON ouput serializer of objects
 gem 'fast_jsonapi', '~> 1.5'
 
+#A simple validation library
+gem 'dry-validation', '~> 0.13.0'
+
 group :development, :test do
   # An IRB alternative and runtime developer console
   gem 'pry', '~> 0.10.4'

@@ -12,6 +12,17 @@ class Location < ApplicationRecord
 
   scope :by_country_code, -> (code) do
     with_location_groups
-    .where(location_groups: { country_id: Country.find_by(code: code) })
+      .where(location_groups: { country_id: Country.find_by(code: code) })
+  end
+
+  def panel_provider_for_country_code(code)
+    location_groups
+      .joins(:country)
+      .where(countries: { code: code })
+      .take&.panel_provider
+  end
+
+  def price_for_country_code(code)
+    panel_provider_for_country_code(code)&.price
   end
 end

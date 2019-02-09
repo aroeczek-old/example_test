@@ -7,6 +7,6 @@ class PanelProvider < ApplicationRecord
   validates :code, presence: true, uniqueness: true
 
   def price
-    Pricing::PanelProviders::Price::CalculatorService.call(self)
+    Pricing::PanelProviders::Price::CalculatorService.call(panel: self)
   end
 end

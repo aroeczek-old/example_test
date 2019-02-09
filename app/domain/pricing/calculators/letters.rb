@@ -6,7 +6,7 @@ module Pricing
       end
 
       def self.call(leter_number_fetcher: Fetchers::LettersNumber)
-        raise ArgumentError if leter_fetcher.blank?
+        raise ArgumentError if leter_number_fetcher.blank?
 
         new(leter_number_fetcher).call
       end
@@ -14,7 +14,7 @@ module Pricing
       private
 
       def price
-        number_fetcher.call / 100
+        number_fetcher.call.occurence / 100.0
       end
     end
   end

@@ -1,8 +1,8 @@
 module Pricing
   module PanelProviders
     module Price
-      module CalculatorService
-        def initialize(panel)
+      class CalculatorService
+        def initialize(panel, calculator)
           @panel      = panel
           @calculator = calculator || select_calculator!
         end
