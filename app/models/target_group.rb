@@ -7,5 +7,11 @@ class TargetGroup < ApplicationRecord
   belongs_to :panel_provider
 
   has_many :country_target_groups, class_name: 'CountriesTargetGroups'
-  has_many :countries, through: :country_target_group
+  has_many :countries, through: :country_target_groups
+
+  scope :with_countries, -> { joins(:countries) }
+
+  scope :by_country_code, ->(code) do
+    with_countries.where(countries: {code: code})
+  end
 end

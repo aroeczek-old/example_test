@@ -6,5 +6,11 @@ Rails.application.routes.draw do
         get ':country_code', action: :index
       end
     end
+
+    resources :target_groups, only: [:index] do
+      collection do
+        get ':country_code', action: :index
+      end
+    end
   end
 end
