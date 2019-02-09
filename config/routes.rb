@@ -1,3 +1,10 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  #If api will be more complicated or need versions I would introduce another level like api/v1/
+  namespace :api do
+    resources :locations, only: [:index] do
+      collection do
+        get ':country_code', action: :index
+      end
+    end
+  end
 end

@@ -7,4 +7,11 @@ class Location < ApplicationRecord
   validates :name, presence: true
   validates :external_id, presence: true, uniqueness: true
   validates :secret_code, presence: true
+
+  scope :with_location_groups, -> { joins(:location_groups) }
+
+  scope :by_country_code, -> (code) do
+    with_location_groups
+    .where(location_groups: { country_id: Country.find_by(code: code) })
+  end
 end

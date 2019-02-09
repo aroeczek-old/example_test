@@ -30,7 +30,11 @@ gem 'faraday', '~> 0.15.4'
 #cache
 gem "redis", "~> 4.1"
 
+# deal with html structures
 gem 'nokogiri', '~> 1.6', '>= 1.6.8'
+
+#JSON ouput serializer of objects
+gem 'fast_jsonapi', '~> 1.5'
 
 group :development, :test do
   # An IRB alternative and runtime developer console
