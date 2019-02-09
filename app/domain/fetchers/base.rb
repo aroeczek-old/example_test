@@ -1,5 +1,8 @@
 module Fetchers
   class Base
+    # If the performance issues occur as a further improvement we can make longer cache time and send light
+    # HEAD request to gain headers(Last-Modified or Etag) and decide if we have to send request for data and recalculate
+    # or just serve data directly from the cache if nothing changed in destination page/response
     DEFAULT_FETCHERS_CACHE_EXPIRATION_SECONDS = 60
 
     Response = Struct.new(:success, :occurence)
