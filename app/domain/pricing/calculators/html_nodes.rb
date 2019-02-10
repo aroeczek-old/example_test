@@ -5,7 +5,7 @@ module Pricing
         super
       end
 
-      def self.call(html_nodes_number_fetcher: Fetchers::NodesNumber)
+      def self.call(html_nodes_number_fetcher: Fetchers::Occurences::HtmlNodes)
         raise ArgumentError if html_nodes_number_fetcher.blank?
 
         new(html_nodes_number_fetcher).call

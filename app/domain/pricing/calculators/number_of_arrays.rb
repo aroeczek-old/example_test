@@ -5,7 +5,7 @@ module Pricing
         super
       end
 
-      def self.call(arrays_number_fetcher: Fetchers::ArraysNumber)
+      def self.call(arrays_number_fetcher: Fetchers::Occurences::Arrays)
         raise ArgumentError if arrays_number_fetcher.blank?
 
         new(arrays_number_fetcher).call

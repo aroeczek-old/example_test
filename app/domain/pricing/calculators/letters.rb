@@ -5,7 +5,7 @@ module Pricing
         super
       end
 
-      def self.call(leter_number_fetcher: Fetchers::LettersNumber)
+      def self.call(leter_number_fetcher: Fetchers::Occurences::Letters)
         raise ArgumentError if leter_number_fetcher.blank?
 
         new(leter_number_fetcher).call
