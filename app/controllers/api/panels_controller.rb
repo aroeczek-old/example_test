@@ -3,12 +3,9 @@ module Api
     before_action :validate_target_params, only: [:evaluate_target]
 
     def evaluate_target
-      response_modifier = Proc.new { |response| response.as_json }
-
       data = Pricing::Locations::PriceEvaluatorService.call(location_ids: location_ids,
-                                                            country_code: params[:country_code],
-                                                            &response_modifier)
-      render_success data
+                                                            country_code: params[:country_code])
+      render_success({ data: data.as_json })
     end
 
     private
@@ -18,9 +15,9 @@ module Api
     end
 
     def validate_target_params
-      output = Validators::Schemas::EvaluateTargetParams.call(params.to_unsafe_h[:panel])
+      output = Validators::Schemas::EvaluateTargetParams.call(params.to_unsafe_h)
 
-      return render_errors(output.errors, status: :bad_request) if output.errors.any?
+      return render_errors(output.errors.camelize_keys!, status: :bad_request) if output.errors.any?
     end
   end
 end
