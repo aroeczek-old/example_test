@@ -1,5 +1,7 @@
 module Api
   class BaseController < ApplicationController
+    before_action :doorkeeper_authorize!
+
     def render_success(json = {})
       render json: json, status: :ok
     end

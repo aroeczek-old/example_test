@@ -5,22 +5,27 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* OAUTH2
+   Standard OAUTH2 client_credentials flow
 
-* System dependencies
+   POST   /oauth/token
+   params:
+   {
+    "client_id": "example",
+    "client_secret": "example",
+    "grant_type": "client_credentials",
+    "scopes": ""
+   }
 
-* Configuration
+   Check client id and secet afterr seeding data in Doorkeeper::Application
 
-* Database creation
+   Retruns OAUT2 token with defaul expiration time
+
+   Resource Auth
+   Include header:
+   Authorization: Bearer example_token
 
 * Database initialization
 
   rake verbose seeds:data
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

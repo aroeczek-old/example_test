@@ -1,4 +1,15 @@
 namespace :seeds do
+  desc  'creates example web app'
+    task web_app: :environment do
+    prevent_production!
+    Doorkeeper::Application.create!(name: :web_app,
+                                    uid: Doorkeeper::AccessToken.generate_unique_secure_token,
+                                    secret: SecureRandom.urlsafe_base64(64),
+                                    redirect_uri: 'https://localhost/oauth2/callback',
+                                    scopes: '')
+    Rails.logger.info('Seeding apps done')
+  end
+
   desc 'Seed for panel providers'
   task panel_providers: :environment do
     prevent_production!
@@ -76,7 +87,7 @@ namespace :seeds do
     prevent_production!
     Rails.logger.info('Seeding data...')
 
-    %w(panel_providers countries locations location_groups target_groups).each { |task| Rake::Task["seeds:#{task}"].execute }
+    %w(panel_providers countries locations location_groups target_groups web_app).each { |task| Rake::Task["seeds:#{task}"].execute }
 
     Rails.logger.info('Seeding data done')
   end

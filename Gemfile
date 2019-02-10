@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
+gem 'rack-cors'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 
@@ -38,6 +40,9 @@ gem 'fast_jsonapi', '~> 1.5'
 
 #A simple validation library
 gem 'dry-validation', '~> 0.13.0'
+
+#an OAuth 2 provider
+gem 'doorkeeper', '~> 5.0', '>= 5.0.2'
 
 group :development, :test do
   # An IRB alternative and runtime developer console
