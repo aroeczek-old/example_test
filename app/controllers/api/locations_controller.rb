@@ -1,7 +1,7 @@
 module Api
   class LocationsController < BaseController
     def index
-      locations = Pricing::Finders::SimpleLocations.call(strong_params)
+      locations = Pricing::Finders::SimpleLocations.call(strong_params[:code])
 
       render_success ::Api::LocationSerializer.new(locations).serialized_json
     end

@@ -7,7 +7,7 @@
 Rails.application.config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
   allow do
     #In real project I would use ENV to conf allowed domains/IPs
-    domains = Rails.env.development? ? '*' : nil
+    domains = Rails.env.development? || Rails.env.test? ? '*' : nil
     origins domains
 
     resource '*',

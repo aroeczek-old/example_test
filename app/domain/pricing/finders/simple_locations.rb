@@ -1,13 +1,12 @@
 module Pricing
   module Finders
     class SimpleLocations
-      def initialize(params)
-        @params = params
-        @code   =  params.dig(:country_code)
+      def initialize(code)
+        @code = code
       end
 
-      def self.call(params)
-        new(params).call
+      def self.call(code = nil)
+        new(code).call
       end
 
       def call
@@ -17,7 +16,7 @@ module Pricing
 
       private
 
-      attr_reader :params, :code
+      attr_reader :code
     end
   end
 end
