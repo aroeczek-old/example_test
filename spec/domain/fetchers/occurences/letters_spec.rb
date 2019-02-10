@@ -5,6 +5,10 @@ describe Fetchers::Occurences::Letters do
     -> { described_class.call(page_url: page_url, letter_to_count: letter) }
   end
 
+  let(:page_url) { 'http://time.com' }
+  let(:letter)   { 'A' }
+  let(:cassette) { ActiveSupport::Inflector.parameterize(page_url, separator: '_') }
+
   after :all do
     VCR.turn_off!
   end
@@ -17,10 +21,6 @@ describe Fetchers::Occurences::Letters do
   end
 
   context 'when passed page exists' do
-    let(:page_url) { 'http://time.com' }
-    let(:cassette) { ActiveSupport::Inflector.parameterize(page_url, separator: '_') }
-    let(:letter)   { 'A' }
-
     context 'when letter occures on page' do
       it 'returns correct letter occurence' do
         expect(@response.occurence).to eq 7
