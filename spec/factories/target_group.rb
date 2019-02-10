@@ -5,7 +5,7 @@ FactoryBot.define do
     secret_code { SecureRandom.uuid }
     parent_id   { nil }
 
-    panel_provider
+    association :panel_provider, factory: [:panel_provider, :panel_1]
 
     trait :child do
       parent { create :target_group }
