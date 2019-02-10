@@ -37,7 +37,7 @@ describe Fetchers::Occurences::Letters do
     end
   end
 
-  context 'whne passed page does not found' do
+  context 'when passed page does not exist' do
     let(:page_url) { 'https://www.invalid.page' }
 
     it 'returns success as false' do

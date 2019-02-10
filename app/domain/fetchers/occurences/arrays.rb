@@ -4,16 +4,17 @@ module Fetchers
       DEFAULT_URL = 'http://openlibrary.org/search.json?q=the+lord+of+the+rings'.freeze
       MIN_NUMBER_OF_ELEMENTS = 10
 
-      def initialize(page_url, use_cache)
+      def initialize(page_url, min_elements, use_cache)
         super(page_url, use_cache)
 
-        @body = nil
+        @body         = nil
+        @min_elements = min_elements
       end
 
-      def self.call(page_url: DEFAULT_URL, use_cache: true)
+      def self.call(page_url: DEFAULT_URL, min_elements: MIN_NUMBER_OF_ELEMENTS, use_cache: true)
         raise ArgumentError if page_url.blank?
 
-        new(page_url, use_cache).call
+        new(page_url, min_elements, use_cache).call
       end
 
       def call
@@ -24,7 +25,7 @@ module Fetchers
 
       private
 
-      attr_accessor :body
+      attr_accessor :body, :min_elements
 
       def fetch_raw
         self.response = http_client.get
@@ -40,7 +41,7 @@ module Fetchers
       def count_occurence
         body.extend CoreExtensions::Hash::ArraysCounter
 
-        body.number_of_arrays(min_elements: MIN_NUMBER_OF_ELEMENTS)
+        body.number_of_arrays(min_elements: min_elements)
       end
 
       def cache_key
