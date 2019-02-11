@@ -4,6 +4,8 @@ This README would normally document whatever steps are necessary to get the
 application up and running.
 
 Things you may want to cover:
+* Docker
+  please use: docker-compose up
 
 * OAUTH2
    Standard OAUTH2 client_credentials flow
