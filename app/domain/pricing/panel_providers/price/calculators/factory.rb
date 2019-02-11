@@ -14,7 +14,7 @@ module Pricing
           end
 
           def call
-            panel_calculator_mappings[panel.class.name] || unknown_calculator
+            panel_calculator_mappings[panel.type] || unknown_calculator
           end
 
           private
@@ -30,7 +30,7 @@ module Pricing
           end
 
           def unknown_calculator
-            raise ::Exceptions::Pricing::UnknowCalculator
+            raise ::Exceptions::PricingErrors::UnknowCalculator
           end
         end
       end

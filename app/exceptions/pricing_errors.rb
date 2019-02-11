@@ -1,5 +1,5 @@
 module Exceptions
-  module Pricing
+  module PricingErrors
     class UnknowCalculator < StandardError; end
   end
 end
