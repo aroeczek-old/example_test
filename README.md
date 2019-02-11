@@ -21,7 +21,7 @@ Things you may want to cover:
 
    Check client id and secet afterr seeding data in Doorkeeper::Application
 
-   Retruns OAUT2 token with defaul expiration time
+   Retruns OAUT2 token with default expiration time
 
    Resource Auth
    Include header:
